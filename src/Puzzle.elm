@@ -17,6 +17,10 @@ type alias Board =
     Dict XY Piece
 
 
+type alias LinearBoard =
+    List ( XY, Piece )
+
+
 addXY : XY -> XY -> XY
 addXY ( x1, y1 ) ( x2, y2 ) =
     ( x1 + x2, y1 + y2 )
@@ -65,3 +69,8 @@ clearBoard =
 isClear : Board -> Bool
 isClear board =
     clearBoard == board
+
+
+toList : Board -> LinearBoard
+toList board =
+    Dict.toList board |> List.sortBy (\( ( x, y ), _ ) -> ( y, x ))
