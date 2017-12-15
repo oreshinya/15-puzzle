@@ -10,4 +10,4 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-    { board = Dict.empty, blank = ( 0, 0 ) }
+    { board = Dict.empty, blank = ( 3, 3 ) }
