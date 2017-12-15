@@ -20,11 +20,17 @@ view ({ board, blankXY } as model) =
 viewBoard : Model -> LinearBoard -> List (Html Msg)
 viewBoard { board, blankXY } boardList =
     let
-        correct xy piece =
+        correctStr xy piece =
             if isCorrect xy piece clearBoard then
                 "correct"
             else
                 "incorrect"
+
+        moveStr xy =
+            if isMove blankXY xy then
+                "is-move"
+            else
+                "is-not-move"
     in
         List.map
             (\( xy, piece ) ->
@@ -32,16 +38,10 @@ viewBoard { board, blankXY } boardList =
                     a [ class "button is-static piece" ]
                         [ span [ class "icon is-medium" ] []
                         ]
-                else if isMove blankXY xy then
-                    a [ class "button is-move piece", onClick <| Move xy piece ]
-                        [ span [ class "icon is-medium" ]
-                            [ p [ class (correct xy piece ++ " num") ] [ text <| toString <| num piece ]
-                            ]
-                        ]
                 else
-                    a [ class "button is-not-move piece", onClick <| Move xy piece ]
+                    a [ class <| "button piece " ++ moveStr xy, onClick <| Move xy piece ]
                         [ span [ class "icon is-medium" ]
-                            [ p [ class (correct xy piece ++ " num") ] [ text <| toString <| num piece ]
+                            [ p [ class <| correctStr xy piece ++ " num" ] [ text <| toString <| num piece ]
                             ]
                         ]
             )
