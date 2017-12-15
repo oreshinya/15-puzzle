@@ -22,6 +22,16 @@ type alias LinearBoard =
     List ( XY, Piece )
 
 
+num : Piece -> Int
+num piece =
+    case piece of
+        Num n ->
+            n
+
+        Blank ->
+            -1
+
+
 addXY : XY -> XY -> XY
 addXY ( x1, y1 ) ( x2, y2 ) =
     ( x1 + x2, y1 + y2 )
@@ -29,7 +39,7 @@ addXY ( x1, y1 ) ( x2, y2 ) =
 
 dirs : List XY
 dirs =
-    [ ( 0, -1 ), ( 1, 0 ), ( 0, -1 ), ( -1, 0 ) ]
+    [ ( 0, -1 ), ( 1, 0 ), ( 0, 1 ), ( -1, 0 ) ]
 
 
 isMove : XY -> XY -> Bool
@@ -86,6 +96,21 @@ coordinates =
     , ( 2, 3 )
     , ( 3, 3 )
     ]
+
+
+isBlank : XY -> Board -> Bool
+isBlank xy board =
+    compareBoard xy Blank board
+
+
+isCorrect : XY -> Piece -> Board -> Bool
+isCorrect xy piece board =
+    compareBoard xy piece board
+
+
+compareBoard : XY -> Piece -> Board -> Bool
+compareBoard xy piece board =
+    Dict.get xy board == Just piece
 
 
 isClear : Board -> Bool
