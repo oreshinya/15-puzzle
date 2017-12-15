@@ -1,9 +1,13 @@
 module Models exposing (..)
 
+import Puzzle exposing (Board, XY)
+import Dict
 
--- Model
+
 type alias Model =
-    { left: Int, right: Int, count: Int }
+    { board : Board, blankXY : XY }
+
 
 initialModel : Model
-initialModel = { left = 0, right = 0, count = 0 }
+initialModel =
+    { board = Dict.empty, blankXY = ( 3, 3 ) }

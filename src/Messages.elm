@@ -1,10 +1,8 @@
 module Messages exposing (..)
 
-import Time exposing (Time)
+import Puzzle exposing (Board, XY, Piece)
 
--- Message
+
 type Msg
-    = Left String 
-    | Right String
-    | Tick Time
-
+    = Move XY Piece
+    | Shuffle (List Int)

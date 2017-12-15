@@ -2,26 +2,47 @@ module View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
-
+import Html.Events exposing (onClick)
 import Messages exposing (..)
 import Models exposing (Model)
-import Operation exposing (..)
+import Puzzle exposing (Board, LinearBoard, Piece(..), num, isMove, isBlank, isCorrect, clearBoard, toList)
 
 
--- View
 view : Model -> Html Msg
-view ( { left, right, count } as model) =
+view ({ board, blankXY } as model) =
     let
-        leftText = toString left
-        rightText = toString right
-        op  = toOpText <| toOp <| count
-        res = toString <| calcNum model
+        boardList =
+            toList board
     in
-        div [ class "expression" ] 
-        [ input [ type_ "number", value leftText, onInput Left   ] [],
-          p [] [ text op ],
-          input [ type_ "number", value rightText, onInput Right ] [],
-          p [] [ text res ]
-        ]
+        div [ class "container" ] <| viewBoard model boardList
 
+
+viewBoard : Model -> LinearBoard -> List (Html Msg)
+viewBoard { board, blankXY } boardList =
+    let
+        correctStr xy piece =
+            if isCorrect xy piece clearBoard then
+                "correct"
+            else
+                "incorrect"
+
+        moveStr xy =
+            if isMove blankXY xy then
+                "is-move"
+            else
+                "is-not-move"
+    in
+        List.map
+            (\( xy, piece ) ->
+                if isBlank xy board then
+                    a [ class "button is-static piece" ]
+                        [ span [ class "icon is-medium" ] []
+                        ]
+                else
+                    a [ class <| "button piece " ++ moveStr xy, onClick <| Move xy piece ]
+                        [ span [ class "icon is-medium" ]
+                            [ p [ class <| correctStr xy piece ++ " num" ] [ text <| toString <| num piece ]
+                            ]
+                        ]
+            )
+            boardList

@@ -2,6 +2,7 @@ module Puzzle exposing (..)
 
 import Dict exposing (Dict)
 import DictUtil exposing (swap)
+import List.Extra exposing (zip)
 
 
 type alias XY =
@@ -17,6 +18,20 @@ type alias Board =
     Dict XY Piece
 
 
+type alias LinearBoard =
+    List ( XY, Piece )
+
+
+num : Piece -> Int
+num piece =
+    case piece of
+        Num n ->
+            n
+
+        Blank ->
+            -1
+
+
 addXY : XY -> XY -> XY
 addXY ( x1, y1 ) ( x2, y2 ) =
     ( x1 + x2, y1 + y2 )
@@ -24,7 +39,7 @@ addXY ( x1, y1 ) ( x2, y2 ) =
 
 dirs : List XY
 dirs =
-    [ ( 0, -1 ), ( 1, 0 ), ( 0, -1 ), ( -1, 0 ) ]
+    [ ( 0, -1 ), ( 1, 0 ), ( 0, 1 ), ( -1, 0 ) ]
 
 
 isMove : XY -> XY -> Bool
@@ -62,6 +77,52 @@ clearBoard =
         ]
 
 
+coordinates : List XY
+coordinates =
+    [ ( 0, 0 )
+    , ( 1, 0 )
+    , ( 2, 0 )
+    , ( 3, 0 )
+    , ( 0, 1 )
+    , ( 1, 1 )
+    , ( 2, 1 )
+    , ( 3, 1 )
+    , ( 0, 2 )
+    , ( 1, 2 )
+    , ( 2, 2 )
+    , ( 3, 2 )
+    , ( 0, 3 )
+    , ( 1, 3 )
+    , ( 2, 3 )
+    , ( 3, 3 )
+    ]
+
+
+isBlank : XY -> Board -> Bool
+isBlank xy board =
+    compareBoard xy Blank board
+
+
+isCorrect : XY -> Piece -> Board -> Bool
+isCorrect xy piece board =
+    compareBoard xy piece board
+
+
+compareBoard : XY -> Piece -> Board -> Bool
+compareBoard xy piece board =
+    Dict.get xy board == Just piece
+
+
 isClear : Board -> Bool
 isClear board =
     clearBoard == board
+
+
+toList : Board -> LinearBoard
+toList board =
+    Dict.toList board |> List.sortBy (\( ( x, y ), _ ) -> ( y, x ))
+
+
+fromIntList : List Int -> Board
+fromIntList intList =
+    (intList |> List.map Num |> zip coordinates) ++ [ ( ( 3, 3 ), Blank ) ] |> Dict.fromList

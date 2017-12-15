@@ -7,7 +7,7 @@ import Dict
 
 -- Test target modules
 
-import Puzzle exposing (Piece(..), move, isClear)
+import Puzzle exposing (Piece(..), move, isClear, clearBoard, toList, fromIntList)
 
 
 all : Test
@@ -121,4 +121,45 @@ all =
                     )
                 )
             === True
+        , "toList"
+            => toList
+                (Dict.fromList
+                    [ ( ( 0, 0 ), Num 1 )
+                    , ( ( 2, 0 ), Num 3 )
+                    , ( ( 3, 0 ), Num 4 )
+                    , ( ( 3, 1 ), Num 8 )
+                    , ( ( 0, 1 ), Num 5 )
+                    , ( ( 1, 1 ), Num 6 )
+                    , ( ( 1, 0 ), Num 2 )
+                    , ( ( 2, 1 ), Num 7 )
+                    , ( ( 0, 2 ), Num 9 )
+                    , ( ( 1, 2 ), Num 10 )
+                    , ( ( 3, 2 ), Num 12 )
+                    , ( ( 0, 3 ), Num 13 )
+                    , ( ( 2, 3 ), Num 15 )
+                    , ( ( 2, 2 ), Num 11 )
+                    , ( ( 1, 3 ), Num 14 )
+                    , ( ( 3, 3 ), Blank )
+                    ]
+                )
+            === [ ( ( 0, 0 ), Num 1 )
+                , ( ( 1, 0 ), Num 2 )
+                , ( ( 2, 0 ), Num 3 )
+                , ( ( 3, 0 ), Num 4 )
+                , ( ( 0, 1 ), Num 5 )
+                , ( ( 1, 1 ), Num 6 )
+                , ( ( 2, 1 ), Num 7 )
+                , ( ( 3, 1 ), Num 8 )
+                , ( ( 0, 2 ), Num 9 )
+                , ( ( 1, 2 ), Num 10 )
+                , ( ( 2, 2 ), Num 11 )
+                , ( ( 3, 2 ), Num 12 )
+                , ( ( 0, 3 ), Num 13 )
+                , ( ( 1, 3 ), Num 14 )
+                , ( ( 2, 3 ), Num 15 )
+                , ( ( 3, 3 ), Blank )
+                ]
+        , "fromIntList"
+            => fromIntList (List.range 1 15)
+            === clearBoard
         ]

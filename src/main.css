@@ -2,27 +2,43 @@
 
 #main {
     padding: 20px;
-}  
-.expression {
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-}
+} 
 
-.expression > input {
-    width: 100px;
-    background-color: rgba(147, 128, 108, 0.1);
-    color: #666666;
-    font: inherit;
-    font-weight: normal;
-}
-
-.expression > input:focus {
-    border:solid 3x #EEA34A;
-}
-
-.expression > p {
-    width: 20px;
-    font-size: 1.3em;
-}
-
+.container {
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 3px solid #996633;
+  }
+  
+  .is-move {
+    border: 2px solid transparent;
+    border-color: #6699ff;
+  }
+  
+  .is-move:hover {
+    border: 3px solid transparent;
+    border-color: #3366FF;
+  }
+  
+  .is-not-move {
+    border: 2px solid transparent;
+    border-color: #dbdbdb;
+  }
+  
+  .piece {
+    font-size: 1.8rem;
+  }
+  
+  
+  .incorrect {
+    color: #808080;
+  }
+  
+  .correct {
+    color: #ff3399;
+  }
+  
+  .num {
+    font-size: 1.6em;
+  }
