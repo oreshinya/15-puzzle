@@ -2,6 +2,7 @@ module Puzzle exposing (..)
 
 import Dict exposing (Dict)
 import DictUtil exposing (swap)
+import List.Extra exposing (zip)
 
 
 type alias XY =
@@ -66,6 +67,27 @@ clearBoard =
         ]
 
 
+coordinates : List XY
+coordinates =
+    [ ( 0, 0 )
+    , ( 1, 0 )
+    , ( 2, 0 )
+    , ( 3, 0 )
+    , ( 0, 1 )
+    , ( 1, 1 )
+    , ( 2, 1 )
+    , ( 3, 1 )
+    , ( 0, 2 )
+    , ( 1, 2 )
+    , ( 2, 2 )
+    , ( 3, 2 )
+    , ( 0, 3 )
+    , ( 1, 3 )
+    , ( 2, 3 )
+    , ( 3, 3 )
+    ]
+
+
 isClear : Board -> Bool
 isClear board =
     clearBoard == board
@@ -74,3 +96,8 @@ isClear board =
 toList : Board -> LinearBoard
 toList board =
     Dict.toList board |> List.sortBy (\( ( x, y ), _ ) -> ( y, x ))
+
+
+fromIntList : List Int -> Board
+fromIntList intList =
+    (intList |> List.map Num |> zip coordinates) ++ [ ( ( 3, 3 ), Blank ) ] |> Dict.fromList

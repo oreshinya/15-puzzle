@@ -7,7 +7,7 @@ import Dict
 
 -- Test target modules
 
-import Puzzle exposing (Piece(..), move, isClear, toList)
+import Puzzle exposing (Piece(..), move, isClear, clearBoard, toList, fromIntList)
 
 
 all : Test
@@ -159,4 +159,7 @@ all =
                 , ( ( 2, 3 ), Num 15 )
                 , ( ( 3, 3 ), Blank )
                 ]
+        , "fromIntList"
+            => fromIntList (List.range 1 15)
+            === clearBoard
         ]
