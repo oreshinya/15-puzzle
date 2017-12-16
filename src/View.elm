@@ -33,13 +33,13 @@ viewBoard { board, blankXY } boardList =
                 "is-not-move"
     in
         List.map
-            (\( xy, piece ) ->
+            (\( ((x, y) as xy), piece ) ->
                 if isBlank xy board then
-                    a [ class "button is-static piece" ]
+                    a [ class "button is-static piece", style [ ("transform", "translate(" ++ (toString (73.5 * toFloat x)) ++ "px," ++ (toString (64.8 * toFloat y)) ++ "px)") ] ]
                         [ span [ class "icon is-medium" ] []
                         ]
                 else
-                    a [ class <| "button piece " ++ moveStr xy, onClick <| Move xy piece ]
+                    a [ class <| "button piece " ++ moveStr xy, style [ ("transform", "translate(" ++ (toString (73.5 * toFloat x)) ++ "px," ++ (toString (64.8 * toFloat y)) ++ "px)") ], onClick <| Move xy piece ]
                         [ span [ class "icon is-medium" ]
                             [ p [ class <| correctStr xy piece ++ " num" ] [ text <| toString <| num piece ]
                             ]

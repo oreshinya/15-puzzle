@@ -120,7 +120,8 @@ isClear board =
 
 toList : Board -> LinearBoard
 toList board =
-    Dict.toList board |> List.sortBy (\( ( x, y ), _ ) -> ( y, x ))
+    Dict.toList board |> List.sortBy (\( _, piece ) -> num piece)
+    --Dict.toList board |> List.sortBy (\( ( x, y ), _ ) -> ( y, x ))
 
 
 fromIntList : List Int -> Board

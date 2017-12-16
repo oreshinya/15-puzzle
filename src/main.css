@@ -2,43 +2,53 @@
 
 #main {
     padding: 20px;
-} 
+}
 
 .container {
     width: 300px;
+    height: 265.19px;
+    position: relative;
+    /*
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    */
     border: 3px solid #996633;
+    background-color: #f5f5f5;
   }
-  
+
   .is-move {
     border: 2px solid transparent;
     border-color: #6699ff;
   }
-  
+
   .is-move:hover {
     border: 3px solid transparent;
     border-color: #3366FF;
   }
-  
+
   .is-not-move {
     border: 2px solid transparent;
     border-color: #dbdbdb;
   }
-  
+
   .piece {
     font-size: 1.8rem;
+    position: absolute;
+    display: block;
+    width: 73.5px;
+    height: 64.8px;
+    transition: transform 0.1s linear;
   }
-  
-  
+
+
   .incorrect {
     color: #808080;
   }
-  
+
   .correct {
     color: #ff3399;
   }
-  
+
   .num {
     font-size: 1.6em;
   }
